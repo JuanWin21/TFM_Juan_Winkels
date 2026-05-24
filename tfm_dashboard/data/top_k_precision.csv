@@ -1,0 +1,22 @@
+modelo,k,tp,precision@k,recall@k
+XGBoost,3,0,0.0,0.0
+XGBoost,5,0,0.0,0.0
+XGBoost,10,1,0.1,0.2
+XGBoost,15,2,0.13333333333333333,0.4
+XGBoost,20,2,0.1,0.4
+XGBoost,30,4,0.13333333333333333,0.8
+XGBoost,50,4,0.08,0.8
+LightGBM,3,1,0.3333333333333333,0.2
+LightGBM,5,1,0.2,0.2
+LightGBM,10,2,0.2,0.4
+LightGBM,15,3,0.2,0.6
+LightGBM,20,3,0.15,0.6
+LightGBM,30,3,0.1,0.6
+LightGBM,50,3,0.06,0.6
+Consenso (min),3,0,0.0,0.0
+Consenso (min),5,1,0.2,0.2
+Consenso (min),10,2,0.2,0.4
+Consenso (min),15,3,0.2,0.6
+Consenso (min),20,3,0.15,0.6
+Consenso (min),30,3,0.1,0.6
+Consenso (min),50,3,0.06,0.6

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de alerta temprana de conflicto armado</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="page-main">
+
+<header class="hero hero--main">
+  <div class="hero-inner">
+    <div class="hero-titles">
+      <h1>Sistema de alerta temprana de conflicto armado</h1>
+      <p class="hero-uncertainty" id="hero-uncertainty"></p>
+    </div>
+    <nav class="hero-nav">
+      <a class="hero-nav__link" href="acerca.html">Acerca del sistema (informacion tecnica) -></a>
+    </nav>
+  </div>
+</header>
+
+<!-- Selector de mes global (v4): sincroniza resumen, tarjetas y mapa -->
+<section id="month-selector" class="month-selector">
+  <div class="month-selector__inner">
+    <label for="month-input" class="month-selector__label">Mes de analisis:</label>
+    <input type="range" id="month-input" min="0" max="0" value="0" step="1" />
+    <span id="month-label" class="month-selector__value">2024-09</span>
+    <span class="month-selector__hint">Navega los meses para ver la evolucion del riesgo.</span>
+  </div>
+</section>
+
+<main>
+
+  <!-- Bloque 1: resumen del mes seleccionado -->
+  <section class="section">
+    <h2>Resumen del mes seleccionado</h2>
+    <div id="summary-block" class="summary-block"></div>
+    <p id="summary-compare" class="summary-compare"></p>
+  </section>
+
+  <!-- Bloque 2: tarjetas de alerta agrupadas -->
+  <section class="section">
+    <h2 id="alerts-title">Alertas - 2024-09</h2>
+    <p class="note">Paises bajo vigilancia en el mes seleccionado, agrupados por nivel de riesgo. Click para abrir la ficha del pais.</p>
+    <div id="alert-cards" class="alert-cards"></div>
+  </section>
+
+  <!-- Bloque 3: mapa -->
+  <section class="section">
+    <h2>Mapa de riesgo</h2>
+    <div id="map"></div>
+    <p class="note">10 micro-estados no se representan en el mapa a esta resolucion. Su informacion sigue disponible en la ficha de pais (al hacer click en una tarjeta).</p>
+  </section>
+
+  <!-- Bloque 4: ficha de pais (panel desplegable) -->
+  <section id="pais" class="section pais-section">
+    <button id="pais-close" class="pais-close" type="button" aria-label="Cerrar ficha">x</button>
+    <h2>Ficha del pais</h2>
+    <div id="pais-header"></div>
+    <div class="pais-grid">
+      <div class="pais-block">
+        <h4>Evolucion del riesgo en 2024</h4>
+        <div class="canvas-wrap"><canvas id="pais-chart"></canvas></div>
+      </div>
+      <div id="pais-factors" class="pais-block"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    Sistema construido a partir de modelos de prediccion entrenados sobre datos historicos UCDP, ACLED, WDI, V-Dem y SIPRI.
+    Para metricas, validacion y documentacion tecnica, consulta
+    <a href="acerca.html">Acerca del sistema</a>.
+  </p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>

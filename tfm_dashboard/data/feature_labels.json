@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "schema": "v2",
+    "description": "Etiquetas para features SHAP. Cada entrada tiene 'label' (tecnica, para acerca.html) y 'operational' (lenguaje humano, para la pagina principal).",
+    "fuentes": {
+      "sipri": "SIPRI - Gasto militar",
+      "acled": "ACLED - Eventos de violencia",
+      "wdi": "WDI (Banco Mundial)",
+      "vdem": "V-Dem (Varieties of Democracy)",
+      "ucdp": "UCDP - Conflictos armados"
+    }
+  },
+  "z_sipri_milex_constant_2023_usd_millions": {
+    "label": "Gasto militar SIPRI (USD constantes 2023, millones)",
+    "operational": "capacidad militar del estado"
+  },
+  "z_log_sipri_milex_constant_2023_usd_millions": {
+    "label": "Gasto militar SIPRI (USD const. 2023, log)",
+    "operational": "capacidad militar del estado"
+  },
+  "z_sipri_milex_per_capita_constant_2023_usd_delta12m": {
+    "label": "Gasto militar SIPRI per capita (variacion 12m)",
+    "operational": "cambio reciente en militarizacion per capita"
+  },
+  "z_acled_violence_against_civilians_events_roll6m": {
+    "label": "Eventos ACLED de violencia contra civiles (media movil 6m)",
+    "operational": "violencia reciente contra civiles"
+  },
+  "z_log_acled_violence_against_civilians_events_roll6m": {
+    "label": "Eventos ACLED de violencia contra civiles (media movil 6m, log)",
+    "operational": "violencia reciente contra civiles"
+  },
+  "z_acled_violence_against_civilians_events_roll12m": {
+    "label": "Eventos ACLED de violencia contra civiles (media movil 12m)",
+    "operational": "violencia contra civiles en el ultimo ano"
+  },
+  "z_acled_battles_fatalities_roll3m": {
+    "label": "Muertes ACLED en batallas (media movil 3m)",
+    "operational": "intensidad reciente de combates"
+  },
+  "z_acled_riots_fatalities_delta6m": {
+    "label": "Muertes ACLED en disturbios (variacion 6m)",
+    "operational": "cambio reciente en victimas de disturbios"
+  },
+  "z_acled_total_events_lag6": {
+    "label": "Total de eventos ACLED (retardo 6m)",
+    "operational": "actividad violenta del semestre previo"
+  },
+  "z_wdi_gdp_per_capita_current_usd": {
+    "label": "PIB per capita WDI (USD corrientes)",
+    "operational": "nivel de renta del pais"
+  },
+  "z_log_wdi_gdp_per_capita_current_usd": {
+    "label": "PIB per capita WDI (USD corrientes, log)",
+    "operational": "nivel de renta del pais"
+  },
+  "z_wdi_gdp_per_capita_current_usd_lag1": {
+    "label": "PIB per capita WDI (retardo 1m)",
+    "operational": "renta del pais (1 mes antes)"
+  },
+  "z_wdi_gdp_per_capita_current_usd_lag3": {
+    "label": "PIB per capita WDI (retardo 3m)",
+    "operational": "renta del pais (3 meses antes)"
+  },
+  "z_wdi_gdp_per_capita_current_usd_roll3m": {
+    "label": "PIB per capita WDI (media movil 3m)",
+    "operational": "renta del pais (trimestre reciente)"
+  },
+  "z_log_wdi_gdp_per_capita_current_usd_roll3m": {
+    "label": "PIB per capita WDI (media movil 3m, log)",
+    "operational": "renta del pais (trimestre reciente)"
+  },
+  "z_wdi_gdp_per_capita_current_usd_roll6m": {
+    "label": "PIB per capita WDI (media movil 6m)",
+    "operational": "renta del pais (semestre reciente)"
+  },
+  "z_wdi_forcibly_displaced_people": {
+    "label": "Personas desplazadas forzosamente WDI",
+    "operational": "presion migratoria forzada"
+  },
+  "z_wdi_employment_to_population_ratio_15plus_total_pct": {
+    "label": "Tasa de empleo WDI (poblacion 15+, %)",
+    "operational": "nivel de empleo de la poblacion adulta"
+  },
+  "z_wdi_employment_to_population_ratio_15plus_total_pct_lag3": {
+    "label": "Tasa de empleo WDI (retardo 3m)",
+    "operational": "nivel de empleo (3 meses antes)"
+  },
+  "z_wdi_fuel_exports_pct_merchandise_exports_lag12": {
+    "label": "Exportaciones de combustibles WDI (% mercancias, retardo 12m)",
+    "operational": "dependencia de exportacion de combustibles"
+  },
+  "z_wdi_military_expenditure_pct_of_gdp": {
+    "label": "Gasto militar WDI (% del PIB)",
+    "operational": "peso del gasto militar en la economia"
+  },
+  "z_wdi_commercial_service_imports_current_usd_delta12m": {
+    "label": "Importacion de servicios comerciales WDI (variacion 12m)",
+    "operational": "cambio reciente en importacion de servicios"
+  },
+  "z_wdi_commercial_service_exports_current_usd_roll12m": {
+    "label": "Exportacion de servicios comerciales WDI (media movil 12m)",
+    "operational": "exportacion de servicios del ultimo ano"
+  },
+  "z_vdem_participatory_democracy_index": {
+    "label": "Indice V-Dem de democracia participativa",
+    "operational": "calidad de la democracia participativa"
+  },
+  "z_vdem_participatory_democracy_index_delta12m": {
+    "label": "Democracia participativa V-Dem (variacion 12m)",
+    "operational": "cambio reciente en democracia participativa"
+  },
+  "z_vdem_participatory_democracy_index_lag12": {
+    "label": "Democracia participativa V-Dem (retardo 12m)",
+    "operational": "calidad democratica (un ano antes)"
+  },
+  "z_vdem_deliberative_democracy_index_delta12m": {
+    "label": "Democracia deliberativa V-Dem (variacion 12m)",
+    "operational": "cambio reciente en deliberacion politica"
+  },
+  "z_vdem_deliberative_democracy_index_roll12m": {
+    "label": "Democracia deliberativa V-Dem (media movil 12m)",
+    "operational": "deliberacion politica del ultimo ano"
+  },
+  "z_vdem_egalitarian_democracy_index": {
+    "label": "Indice V-Dem de democracia igualitaria",
+    "operational": "igualdad politica y social"
+  },
+  "z_vdem_egalitarian_democracy_index_delta12m": {
+    "label": "Democracia igualitaria V-Dem (variacion 12m)",
+    "operational": "cambio reciente en igualdad politica"
+  },
+  "z_vdem_liberal_democracy_index": {
+    "label": "Indice V-Dem de democracia liberal",
+    "operational": "respeto a derechos individuales"
+  },
+  "z_vdem_liberal_democracy_index_delta12m": {
+    "label": "Democracia liberal V-Dem (variacion 12m)",
+    "operational": "cambio reciente en derechos individuales"
+  },
+  "z_vdem_electoral_democracy_index_lag12": {
+    "label": "Democracia electoral V-Dem (retardo 12m)",
+    "operational": "calidad electoral (un ano antes)"
+  },
+  "z_ucdp_conflict_count_roll12m": {
+    "label": "Numero de conflictos UCDP activos (media movil 12m)",
+    "operational": "conflictos activos del ultimo ano"
+  }
+}

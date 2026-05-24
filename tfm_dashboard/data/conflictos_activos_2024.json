@@ -1,0 +1,62 @@
+{
+  "_metadata": {
+    "description": "Paises con conflicto activo en algun mes de 2024 segun UCDP/PRIO. Datos derivados del dataset final del TFM.",
+    "purpose": "Para el dashboard: distinguir paises 'en conflicto continuo' (excluidos por construccion del sistema de alerta temprana, que opera solo sobre paises en paz) y 'onset durante 2024' (positivos reales del periodo, casos donde validar el comportamiento del sistema).",
+    "total_in_conflict_2024": 35
+  },
+  "conflicto_continuo": [
+    "Afghanistan",
+    "Benin",
+    "Burkina Faso",
+    "Burma/Myanmar",
+    "Burundi",
+    "Cameroon",
+    "Central African Republic",
+    "Colombia",
+    "Democratic Republic of the Congo",
+    "Ethiopia",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Israel",
+    "Kenya",
+    "Mali",
+    "Mozambique",
+    "Niger",
+    "Nigeria",
+    "Pakistan",
+    "Philippines",
+    "Russia",
+    "Rwanda",
+    "Somalia",
+    "Sudan",
+    "Syria",
+    "Thailand",
+    "Togo",
+    "Türkiye",
+    "Ukraine"
+  ],
+  "onset_durante_2024": [
+    {
+      "country": "United States of America",
+      "since_month": "2024-02",
+      "context": "Operacion contra los hutíes en Yemen (Red Sea, conflicto interestatal UCDP type 2). No es un onset de conflicto domestico."
+    },
+    {
+      "country": "United Kingdom",
+      "since_month": "2024-02",
+      "context": "Operacion contra los hutíes en Yemen (Red Sea, conflicto interestatal UCDP type 2). No es un onset de conflicto domestico."
+    },
+    {
+      "country": "Haiti",
+      "since_month": "2024-03",
+      "context": "Escalada de violencia de pandillas (coalicion Viv Ansanm). Conflicto intraestatal internacionalizado."
+    },
+    {
+      "country": "Angola",
+      "since_month": "2024-12",
+      "context": "Conflicto en Cabinda. Conflicto intraestatal."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+gamma/beta,umbral_optimo,utility_max,TP,FP,FN,recall_implicito,precision_implicita
+5,0.71,-23.0,2,10,3,0.4,0.16666666666666666
+10,0.59,-36.0,4,30,1,0.8,0.11764705882352941
+20,0.59,-46.0,4,30,1,0.8,0.11764705882352941

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acerca del sistema - Documentacion tecnica</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="page-acerca">
+
+<header class="hero hero--acerca">
+  <div class="hero-inner">
+    <div class="hero-titles">
+      <h1>Acerca del sistema</h1>
+      <p class="subtitle">Documentacion tecnica: modelos, metricas de validacion, explicabilidad y comparativas.</p>
+    </div>
+    <nav class="hero-nav">
+      <a class="hero-nav__link" href="index.html">&lt;- Volver al panel operativo</a>
+    </nav>
+    <nav class="toc">
+      <a href="#introduccion">Introduccion</a>
+      <a href="#kpis">KPIs</a>
+      <a href="#temporal">Walk-forward</a>
+      <a href="#comparativa">Comparativas</a>
+      <a href="#shap-global">SHAP global</a>
+      <a href="#umbral">Umbral</a>
+      <a href="#tabla">Tabla</a>
+      <a href="#validacion-casos-reales">Validacion casos reales</a>
+      <a href="#anexos">Anexos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section id="introduccion" class="section">
+    <h2>Introduccion tecnica</h2>
+    <p>
+      El sistema combina tres modelos de prediccion entrenados sobre indicadores mensuales
+      pais-mes (UCDP, ACLED, WDI, V-Dem, SIPRI) para anticipar transiciones de paz a conflicto
+      armado a un horizonte de 3 meses.
+    </p>
+    <ul>
+      <li><strong>XGBoost</strong>: modelo principal, optimizado con validacion walk-forward 2019-2024.</li>
+      <li><strong>LightGBM</strong>: modelo secundario, entrenado de forma independiente para validacion cruzada.</li>
+      <li><strong>Consenso (AND)</strong>: alerta solo cuando XGBoost y LightGBM coinciden.</li>
+      <li><strong>Baseline de persistencia</strong>: predice conflicto si lo hubo en los 12 meses previos (referencia operativa).</li>
+    </ul>
+    <p>
+      Definiciones de target:
+      <em>original</em> = onset de cualquier conflicto UCDP (incluido interestatal) en los proximos 3 meses;
+      <em>intraestatal</em> = onset intraestatal (UCDP type 3) + intraestatal internacionalizado (type 4) en los proximos 3 meses.
+    </p>
+  </section>
+
+  <section id="kpis" class="section">
+    <h2>KPIs de test (2024)</h2>
+    <p class="note">Precision, recall y F1 con IC Wilson 95% (precision, recall) y bootstrap 95% (F1). Test 2024-01 a 2024-09.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card" id="kpi-xgboost"></div>
+      <div class="kpi-card" id="kpi-lightgbm"></div>
+      <div class="kpi-card" id="kpi-consenso"></div>
+      <div class="kpi-card kpi-card--operativa" id="kpi-carga"></div>
+    </div>
+  </section>
+
+  <section id="temporal" class="section">
+    <h2>Walk-forward 2019 - 2024</h2>
+    <p class="note">XGBoost frente a baseline de persistencia.</p>
+    <div class="chart-controls">
+      <label>Metrica:
+        <select id="wf-metric">
+          <option value="precision">Precision</option>
+          <option value="recall">Recall</option>
+          <option value="f1" selected>F1</option>
+        </select>
+      </label>
+    </div>
+    <canvas id="walkforward-chart"></canvas>
+  </section>
+
+  <section id="comparativa" class="section">
+    <h2>Comparativas</h2>
+    <div class="comp-grid">
+      <div class="comp-block">
+        <h3>XGBoost vs Baseline por definicion de target</h3>
+        <canvas id="comparativa-chart"></canvas>
+        <p class="note">
+          <strong>original</strong>: cualquier tipo UCDP, incluido interestatal.
+          <strong>intraestatal</strong>: UCDP/PRIO type 3 intraestatal + type 4 internacionalizado;
+          excluye type 2 interestatal (ej. USA/UK en Yemen 2024). Ventana: 3 meses adelantados.
+        </p>
+      </div>
+      <div class="comp-block">
+        <h3>Precision@k</h3>
+        <canvas id="topk-chart"></canvas>
+        <p class="note">Precision en el top-k de paises ordenados por score (anual). Util para priorizacion operativa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="shap-global" class="section">
+    <h2>Explicabilidad global (SHAP)</h2>
+    <p class="note">Top 25 variables por |SHAP medio absoluto|. Color: rojo = empuja a alerta, azul = empuja a no-alerta (segun signo del SHAP medio).</p>
+    <div id="shap-global-bars"></div>
+  </section>
+
+  <section id="umbral" class="section">
+    <h2>Simulador de umbral (XGBoost)</h2>
+    <p class="note">Recalcula en vivo TP, FP, FN, TN y metricas sobre las predicciones de XGBoost 2024 al cambiar el umbral. Por defecto 0.76 (el operativo del modelo).</p>
+    <div class="threshold-controls">
+      <label>Umbral:
+        <input type="range" id="threshold-slider" min="0" max="1" step="0.01" value="0.76" />
+        <span id="threshold-value">0.76</span>
+      </label>
+    </div>
+    <div class="threshold-grid">
+      <div class="metric-block" id="thr-metrics"></div>
+      <div class="table-block">
+        <h3>Alertas resultantes</h3>
+        <div class="table-scroll">
+          <table id="thr-alerts">
+            <thead>
+              <tr><th>Pais</th><th>Periodo</th><th>Score</th><th>Target</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabla" class="section">
+    <h2>Tabla pais-mes</h2>
+    <div class="table-controls">
+      <input type="text" id="tabla-filter" placeholder="Filtrar por pais..." />
+      <label class="checkbox"><input type="checkbox" id="tabla-only-alerts" /> Solo alertas</label>
+      <label class="checkbox"><input type="checkbox" id="tabla-only-truth" /> Solo positivos reales</label>
+    </div>
+    <div class="table-scroll table-scroll--big">
+      <table id="tabla-predicciones">
+        <thead>
+          <tr>
+            <th data-key="country_name">Pais</th>
+            <th data-key="period">Periodo</th>
+            <th data-key="xgboost_score">XGBoost</th>
+            <th data-key="lightgbm_score">LightGBM</th>
+            <th data-key="consensus_score">Consenso</th>
+            <th data-key="xgboost_alert">Alerta XGB</th>
+            <th data-key="lightgbm_alert">Alerta LGBM</th>
+            <th data-key="consensus_alert">Alerta cons.</th>
+            <th data-key="target">Ground truth</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="validacion-casos-reales" class="section">
+    <h2>Validacion con casos reales del periodo</h2>
+    <p class="note">
+      Durante 2024, 4 paises transitaron de un estado de paz a un estado de
+      conflicto armado activo segun UCDP/PRIO. Esta seccion documenta como
+      el sistema se comporto frente a estos casos en los meses previos al
+      onset, lo que constituye una validacion ex-post del comportamiento
+      del modelo.
+    </p>
+    <div id="casos-reales-container"></div>
+  </section>
+
+  <section id="anexos" class="section">
+    <h2>Graficos de apoyo</h2>
+    <p class="note">Resultados estaticos producidos por el notebook. Click para ampliar.</p>
+    <div class="gallery">
+      <figure><img src="data/matrices_confusion_test_2024.png" alt="Matrices de confusion test 2024" /><figcaption>Matrices de confusion (test 2024)</figcaption></figure>
+      <figure><img src="data/calibracion.png" alt="Calibracion" /><figcaption>Calibracion</figcaption></figure>
+      <figure><img src="data/bootstrap_pareado.png" alt="Bootstrap pareado" /><figcaption>Bootstrap pareado</figcaption></figure>
+      <figure><img src="data/carga_operativa.png" alt="Carga operativa" /><figcaption>Carga operativa</figcaption></figure>
+      <figure><img src="data/shap_global.png" alt="SHAP global" /><figcaption>SHAP global</figcaption></figure>
+      <figure><img src="data/shap_chad.png" alt="SHAP Chad" /><figcaption>SHAP Chad</figcaption></figure>
+      <figure><img src="data/shap_haiti.png" alt="SHAP Haiti" /><figcaption>SHAP Haiti</figcaption></figure>
+      <figure><img src="data/top_k.png" alt="Precision@k" /><figcaption>Precision@k</figcaption></figure>
+      <figure><img src="data/comparativa_target.png" alt="Comparativa target" /><figcaption>Comparativa target</figcaption></figure>
+    </div>
+  </section>
+
+</main>
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <img id="lightbox-img" alt="" />
+  <button id="lightbox-close" aria-label="Cerrar">x</button>
+</div>
+
+<footer>
+  <p>Documentacion tecnica del sistema de alerta temprana. <a href="index.html">Volver al panel operativo</a>.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script type="module" src="js/main-acerca.js"></script>
+
+</body>
+</html>
